@@ -35,13 +35,17 @@ public class FormNguoiMua extends JFrame {
         
         // Panel nhập liệu
         JPanel inputPanel = new JPanel(new GridBagLayout());
-        inputPanel.setBorder(BorderFactory.createTitledBorder("Thông Tin Người Mua"));
+        inputPanel.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createTitledBorder("Thông Tin Người Mua"),
+            BorderFactory.createEmptyBorder(10, 10, 10, 10)
+        ));
+        
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.insets = new Insets(8, 8, 8, 8);
         gbc.fill = GridBagConstraints.HORIZONTAL;
         
         // Họ tên
-        gbc.gridx = 0; gbc.gridy = 0;
+        gbc.gridx = 0; gbc.gridy = 0; gbc.weightx = 0;
         inputPanel.add(new JLabel("Họ tên:"), gbc);
         
         gbc.gridx = 1; gbc.gridy = 0; gbc.weightx = 1.0;
@@ -66,10 +70,15 @@ public class FormNguoiMua extends JFrame {
         inputPanel.add(cboLoai, gbc);
         
         // Buttons
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 10));
         JButton btnThem = new JButton("Thêm");
         JButton btnLamMoi = new JButton("Làm mới");
         JButton btnTaiLai = new JButton("Tải lại danh sách");
+        
+        Dimension btnSize = new Dimension(130, 35);
+        btnThem.setPreferredSize(btnSize);
+        btnLamMoi.setPreferredSize(btnSize);
+        btnTaiLai.setPreferredSize(new Dimension(150, 35));
         
         btnThem.addActionListener(e -> themNguoiMua());
         btnLamMoi.addActionListener(e -> lamMoi());
@@ -80,6 +89,7 @@ public class FormNguoiMua extends JFrame {
         buttonPanel.add(btnTaiLai);
         
         gbc.gridx = 0; gbc.gridy = 3; gbc.gridwidth = 2;
+        gbc.insets = new Insets(20, 0, 0, 0);
         inputPanel.add(buttonPanel, gbc);
         
         // Table
@@ -92,9 +102,14 @@ public class FormNguoiMua extends JFrame {
         };
         table = new JTable(tableModel);
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        table.setRowHeight(25);
+        table.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
         
         JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setBorder(BorderFactory.createTitledBorder("Danh Sách Người Mua"));
+        scrollPane.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createTitledBorder("Danh Sách Người Mua"),
+            BorderFactory.createEmptyBorder(5, 5, 5, 5)
+        ));
         
         add(inputPanel, BorderLayout.NORTH);
         add(scrollPane, BorderLayout.CENTER);
